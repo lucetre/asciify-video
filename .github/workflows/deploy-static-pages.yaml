@@ -9,6 +9,7 @@ on:
         type: choice
         description: Directory to deploy static pages
         options: 
+        - pages
         - 166_Ascii_Image
         - 166_Ascii_Image/ascii-image-canvas
         - 166_Ascii_Image/ascii-image-dom
