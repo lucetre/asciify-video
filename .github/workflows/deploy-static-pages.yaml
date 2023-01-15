@@ -2,12 +2,19 @@
 name: Deploy static content to Pages
 
 on:
-  # Runs on pushes targeting the default branch
-  push:
-    branches: ["main"]
-
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
+    inputs:
+      path-to-directory:
+        type: choice
+        description: Directory to deploy static pages
+        options: 
+        - 166_Ascii_Image
+        - 166_Ascii_Image/ascii-image-canvas
+        - 166_Ascii_Image/ascii-image-dom
+        - 166_Ascii_Image/ascii-text
+        - 166_Ascii_Image/ascii-video
+        - 166_Ascii_Image/ascii-weather-api
 
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
@@ -36,7 +43,7 @@ jobs:
         uses: actions/upload-pages-artifact@v1
         with:
           # Upload entire repository
-          path: '166_Ascii_Image/ascii-video'
+          path: '${{ github.event.inputs.path-to-directory }}'
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v1
