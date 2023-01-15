@@ -6,3 +6,4 @@ This repository is to render video and generate copyable ascii-arts.
 - [ ] Extract an object without background.
 - [ ] Optimze brightness by introducing upper & lower thresholds (automatize).
 - [ ] Enable user variate pixel size of Ascii-art to be created.
+- [ ] Share users' snapshots via dashboard.
