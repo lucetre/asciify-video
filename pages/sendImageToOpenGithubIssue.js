@@ -25,5 +25,4 @@ export async function sendImageToOpenGithubIssue() {
   } else {
     console.log("failed to post image");
   }
-  return false
 }

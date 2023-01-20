@@ -19,7 +19,10 @@
       import { sendImageToOpenGithubIssue } from "./sendImageToOpenGithubIssue.js";
       module.sendImageToOpenGithubIssue = sendImageToOpenGithubIssue;
     </script>
-    <form target="#" onsubmit="module.sendImageToOpenGithubIssue()">
+    <form
+      target="#"
+      onsubmit="module.sendImageToOpenGithubIssue();return false"
+    >
       <input
         type="text"
         id="username"
@@ -27,11 +30,7 @@
         size="20"
         value="anonymous"
       />
-      <input
-        type="submit"
-        id="send-btn"
-        value="Post"
-      />
+      <input type="submit" id="send-btn" value="Post" />
     </form>
     <script src="sketch.js"></script>
     <script src="bodypix.js"></script>
