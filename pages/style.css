@@ -12,3 +12,14 @@ body {
 canvas {
   display: block;
 }
+
+input#send-btn {
+  margin: 10px 5px;
+  width: 60px;
+  height: 30px;
+}
+
+input#username {
+  margin: 20px 0px 20px 20px;
+  height: 25px;
+}
