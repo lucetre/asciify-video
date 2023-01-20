@@ -1,0 +1,24 @@
+name: Create an issue on trigger
+
+on:
+  workflow_dispatch:
+    inputs:
+      ascii-image:
+        required: true
+        type: string
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  stuff:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: JasonEtco/create-an-issue@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - run: |
+          echo Created issue number ${{ steps.create-issue.outputs.number }}
+          echo Created ${{ steps.create-issue.outputs.url }}
