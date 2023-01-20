@@ -1,6 +1,8 @@
 ---
-title: Someone just pushed
-assignees: JasonEtco, matchai
-labels: bug, enhancement
+title: Ascii Radar {{ date | date('dddd, MMMM Do') }}
 ---
-Someone just pushed, oh no! Here's who did it: {{ payload.sender.login }}.
+My asciified picture is kinda pretty, right?
+
+```
+{{ env.ASCII_IMAGE }}
+```
