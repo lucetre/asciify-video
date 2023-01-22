@@ -8,7 +8,7 @@ var leftBuffer;
 var rightBuffer;
 
 const CapturePreviewWidth = window.innerWidth;
-const CapturePreviewHeight = 600;
+const CapturePreviewHeight = 500;
 
 console.log(window)
 const options = {
@@ -65,25 +65,20 @@ function draw() {
 }
 
 function drawBuffer() {
-  // leftBuffer.background(0, 0, 0);
-  // leftBuffer.fill(255, 255, 255);
-  // leftBuffer.textSize(32);
-  // leftBuffer.text("Original Video", 90, 50);
-
   let capWidth, capHeight;
   if (capture.width > capture.height) {
     capWidth = leftBuffer.width;
-    capHeight = (leftBuffer.height * capture.width) / capture.height;
+    capHeight = (capture.height * leftBuffer.width) / capture.width;
     if (capHeight > leftBuffer.height) {
-      capWidth = (leftBuffer.width * capture.height) / capture.width;
+      capWidth = (capture.width * leftBuffer.height) / capture.height;
       capHeight = leftBuffer.height;
     }
   } else {
-    capWidth = (leftBuffer.width * capture.height) / capture.width;
+    capWidth = (capture.width * leftBuffer.height) / capture.height;
     capHeight = leftBuffer.height;
     if (capWidth > leftBuffer.width) {
       capWidth = leftBuffer.width;
-      capHeight = (leftBuffer.height * capture.width) / capture.height;
+      capHeight = (capture.height * leftBuffer.width) / capture.width;
     }
   }
   leftBuffer.image(
