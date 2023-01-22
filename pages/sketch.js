@@ -7,9 +7,10 @@ let asciiDiv;
 var leftBuffer;
 var rightBuffer;
 
-const CapturePreviewWidth = 600;
+const CapturePreviewWidth = window.innerWidth;
 const CapturePreviewHeight = 600;
 
+console.log(window)
 const options = {
   outputStride: 32, // 8, 16, or 32, default is 16
   segmentationThreshold: 0.1, // 0 - 1, defaults to 0.5
@@ -41,7 +42,7 @@ function setup() {
   video.hide();
   asciiDiv = createDiv();
 
-  createCanvas(CapturePreviewWidth * 2, CapturePreviewHeight);
+  createCanvas(CapturePreviewWidth, CapturePreviewHeight);
   leftBuffer = createGraphics(CapturePreviewWidth, CapturePreviewHeight);
   // rightBuffer = createGraphics(CapturePreviewWidth, CapturePreviewHeight);
 
@@ -54,7 +55,7 @@ function setup() {
 
 function draw() {
   // Draw on your buffers however you like
-  drawLeftBuffer();
+  drawBuffer();
   // drawRightBuffer();
   drawAscii();
 
@@ -63,7 +64,7 @@ function draw() {
   // image(rightBuffer, CapturePreviewWidth, 0);
 }
 
-function drawLeftBuffer() {
+function drawBuffer() {
   // leftBuffer.background(0, 0, 0);
   // leftBuffer.fill(255, 255, 255);
   // leftBuffer.textSize(32);
@@ -72,10 +73,18 @@ function drawLeftBuffer() {
   let capWidth, capHeight;
   if (capture.width > capture.height) {
     capWidth = leftBuffer.width;
-    capHeight = (leftBuffer.height * capture.height) / capture.width;
+    capHeight = (leftBuffer.height * capture.width) / capture.height;
+    if (capHeight > leftBuffer.height) {
+      capWidth = (leftBuffer.width * capture.height) / capture.width;
+      capHeight = leftBuffer.height;
+    }
   } else {
-    capWidth = (leftBuffer.width * capture.width) / capture.height;
+    capWidth = (leftBuffer.width * capture.height) / capture.width;
     capHeight = leftBuffer.height;
+    if (capWidth > leftBuffer.width) {
+      capWidth = leftBuffer.width;
+      capHeight = (leftBuffer.height * capture.width) / capture.height;
+    }
   }
   leftBuffer.image(
     capture,
