@@ -60,6 +60,19 @@
         </div>
       </div>
     </form>
+    <div>
+    <label for="ascii-size-range" class="form-label">Ascii Size</label>
+    <input
+      type="range"
+      class="form-range"
+      min="32"
+      max="128"
+      step="2"
+      value="64"
+      oninput="onAsciiSizeChange()"
+      id="ascii-size-range"
+    />
+  </div>
     <script src="sketch.js"></script>
     <script src="bodypix.js"></script>
   </body>

@@ -4,13 +4,11 @@ const density = "Ñ@#W$9876543210?!abc;:+=-,._        ";
 let video, capture, segData, partMask;
 let asciiDiv;
 
-var leftBuffer;
-var rightBuffer;
+var buffer;
 
 const CapturePreviewWidth = window.innerWidth;
-const CapturePreviewHeight = 500;
+const CapturePreviewHeight = 300;
 
-console.log(window)
 const options = {
   outputStride: 32, // 8, 16, or 32, default is 16
   segmentationThreshold: 0.1, // 0 - 1, defaults to 0.5
@@ -33,6 +31,12 @@ function gotResults(err, segmentation) {
   bodypix.segmentWithParts(video, gotResults, options);
 }
 
+function onAsciiSizeChange() {
+  // console.log("onAsciiSizeChange");
+  const width = document.getElementById("ascii-size-range").value;
+  video.size(width, width*2/3);
+}
+
 function setup() {
   capture = createCapture(VIDEO);
   capture.hide();
@@ -43,80 +47,45 @@ function setup() {
   asciiDiv = createDiv();
 
   createCanvas(CapturePreviewWidth, CapturePreviewHeight);
-  leftBuffer = createGraphics(CapturePreviewWidth, CapturePreviewHeight);
-  // rightBuffer = createGraphics(CapturePreviewWidth, CapturePreviewHeight);
+  buffer = createGraphics(CapturePreviewWidth, CapturePreviewHeight);
 
-  // createHSBPalette();
-  // createRGBPalette();
   createSimplePalette();
-
   bodypix.segmentWithParts(video, gotResults, options);
 }
 
 function draw() {
   // Draw on your buffers however you like
   drawBuffer();
-  // drawRightBuffer();
   drawAscii();
 
   // Paint the off-screen buffers onto the main canvas
-  image(leftBuffer, 0, 0);
-  // image(rightBuffer, CapturePreviewWidth, 0);
+  image(buffer, 0, 0);
 }
 
 function drawBuffer() {
   let capWidth, capHeight;
   if (capture.width > capture.height) {
-    capWidth = leftBuffer.width;
-    capHeight = (capture.height * leftBuffer.width) / capture.width;
-    if (capHeight > leftBuffer.height) {
-      capWidth = (capture.width * leftBuffer.height) / capture.height;
-      capHeight = leftBuffer.height;
+    capWidth = buffer.width;
+    capHeight = (capture.height * buffer.width) / capture.width;
+    if (capHeight > buffer.height) {
+      capWidth = (capture.width * buffer.height) / capture.height;
+      capHeight = buffer.height;
     }
   } else {
-    capWidth = (capture.width * leftBuffer.height) / capture.height;
-    capHeight = leftBuffer.height;
-    if (capWidth > leftBuffer.width) {
-      capWidth = leftBuffer.width;
-      capHeight = (capture.height * leftBuffer.width) / capture.width;
+    capWidth = (capture.width * buffer.height) / capture.height;
+    capHeight = buffer.height;
+    if (capWidth > buffer.width) {
+      capWidth = buffer.width;
+      capHeight = (capture.height * buffer.width) / capture.width;
     }
   }
-  leftBuffer.image(
+  buffer.image(
     capture,
-    (leftBuffer.width - capWidth) / 2,
-    (leftBuffer.height - capHeight) / 2,
+    (buffer.width - capWidth) / 2,
+    (buffer.height - capHeight) / 2,
     capWidth,
     capHeight
   );
-}
-
-function drawRightBuffer() {
-  rightBuffer.fill(255, 255, 255);
-  rightBuffer.textSize(32);
-  rightBuffer.text("Rendered Video", 90, 50);
-
-  if (partMask) {
-    for (let j = 0; j < video.height; j++) {
-      for (let i = 0; i < video.width; i++) {
-        const idx = i + j * video.width;
-        const pixelIndex = (i + j * video.width) * 4;
-
-        if (segData[idx] === -1) {
-          video.pixels[pixelIndex + 0] = 0;
-          video.pixels[pixelIndex + 1] = 0;
-          video.pixels[pixelIndex + 2] = 0;
-        }
-      }
-    }
-
-    rightBuffer.image(
-      partMask,
-      0,
-      80,
-      rightBuffer.width,
-      (rightBuffer.width * video.height) / video.width
-    );
-  }
 }
 
 function drawAscii() {
