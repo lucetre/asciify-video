@@ -20,9 +20,9 @@ export async function sendImageToOpenGithubIssue() {
         },
       }
     );
-    console.log(`successfully uploaded image for ${username}`);
+    alert(`Successfully uploaded image for '${username || "anonymous"}'`);
     console.log(asciiImage);
   } else {
-    console.log("failed to post image");
+    alert("Failed to post image");
   }
 }
