@@ -10,12 +10,12 @@ on:
         description: Directory to deploy static pages
         options: 
         - pages
-        - 166_Ascii_Image
-        - 166_Ascii_Image/ascii-image-canvas
-        - 166_Ascii_Image/ascii-image-dom
-        - 166_Ascii_Image/ascii-text
-        - 166_Ascii_Image/ascii-video
-        - 166_Ascii_Image/ascii-weather-api
+        - ref/166_Ascii_Image
+        - ref/166_Ascii_Image/ascii-image-canvas
+        - ref/166_Ascii_Image/ascii-image-dom
+        - ref/166_Ascii_Image/ascii-text
+        - ref/166_Ascii_Image/ascii-video
+        - ref/166_Ascii_Image/ascii-weather-api
 
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
