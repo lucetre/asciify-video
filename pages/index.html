@@ -38,7 +38,7 @@
     </p>
     <form
       target="#"
-      onsubmit="module.sendImageToOpenGithubIssue();return false"
+      onsubmit="event.preventDefault();module.sendImageToOpenGithubIssue();return false"
     >
       <div class="input-group px-4 pb-3 mb-1">
         <input
